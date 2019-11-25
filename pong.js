@@ -16,7 +16,7 @@ class Barra {
         this.tag.setAttribute("width", this.width);
         this.tag.setAttribute("height", this.height);
     }
-1
+
     mover(direccion) {
         console.log(this.largo);
         if(direccion=="-"){

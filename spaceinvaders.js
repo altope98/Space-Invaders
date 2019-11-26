@@ -6,8 +6,6 @@ function disparar(event){
 
 function moverNave(event){
     console.log(event.screenX);
-
-    
 }
 
 window.onload=() => {

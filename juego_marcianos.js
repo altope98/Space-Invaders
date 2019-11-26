@@ -20,8 +20,8 @@ export class Nave{
         this.tag = document.createElementNS("http://www.w3.org/2000/svg", "rect");
         this.tag.setAttribute("fill", "blue");
         this.tag.setAttribute("x", this.x);
-        this.tag.setAttribute("y", 300);
-        this.tag.setAttribute("width", 80);
+        this.tag.setAttribute("y", 400);
+        this.tag.setAttribute("width", 50);
         this.tag.setAttribute("height", 20);
     }
     mover(direccion) {
@@ -62,7 +62,7 @@ export class Juego{
             }
             this.marcianos.push(new Marciano(x,y));
         }
-        this.barra=new Nave();
+        this.nave=new Nave();
     }
 
     dibujar(){
@@ -77,6 +77,9 @@ export class Juego{
             cont++;
             svg.appendChild(this.marciano.mar);
         }
+        this.nave.dibujar();
+        svg.appendChild(this.nave.tag);
+
         div.appendChild(svg);
     }
 }

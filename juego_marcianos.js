@@ -11,6 +11,22 @@ export class Marciano{
             this.mar.setAttribute("x", this.x);
             this.mar.setAttribute("y", this.y);
     }
+    mover(direccion) {
+        //console.log(this.largo);
+        if(direccion=="-"){
+            this.x = this.x - 10;
+        }else{
+            this.x = this.x + 10;
+        }
+        if (this.x <= 0){
+            this.x=5;
+        }
+        if(this.x  >= 500) {
+            this.x=450-5;
+        }
+
+        this.dibujar();
+    }
 }
 
 export class Nave{
@@ -41,6 +57,7 @@ export class Nave{
         this.dibujar();
     }
 
+    
     dibujar() {
         this.tag.setAttribute("x", this.x);
     }

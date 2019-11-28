@@ -1,6 +1,8 @@
 import {Marciano, Nave, Disparo, Juego} from './juego_marcianos.js';
 
+function moverMarciano(){
 
+}
 
 
 function movimiento(evento) {
@@ -15,12 +17,13 @@ function movimiento(evento) {
         blas.nave.mover("+");
     }
 }
-var blas;
+var juego;
 window.onload=() => {
     //document.body.addEventListener("keyup",movimiento);
-    blas =new Juego();
-    blas.dibujar();
+    juego =new Juego();
+    jurgo.dibujar();
     document.body.addEventListener("keyup",movimiento);
+    
 }
 
 

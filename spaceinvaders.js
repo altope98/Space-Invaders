@@ -11,19 +11,32 @@ function movimiento(evento) {
         //disparar();
     }
     if(evento.keyCode==37){
-        blas.nave.mover("-");
+        juego.nave.mover("-");
     }
     if(evento.keyCode==39){
-        blas.nave.mover("+");
+        juego.nave.mover("+");
     }
 }
 var juego;
 window.onload=() => {
     //document.body.addEventListener("keyup",movimiento);
     juego =new Juego();
-    jurgo.dibujar();
+    juego.dibujar();
     document.body.addEventListener("keyup",movimiento);
-    
+    setInterval(()=>{
+        for ( this.marciano of juego.marcianos) {
+            if(this.marciano.x<= 450){
+                this.marciano.x+=10;
+            }
+            if(this.marciano.x?= 0){
+                this.marciano.x+=10;
+            }
+
+            
+
+            
+        }
+    },1000);
 }
 
 

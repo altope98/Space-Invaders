@@ -1,19 +1,26 @@
 import {Marciano, Nave, Disparo, Juego} from './juego_marcianos.js';
 
-function disparar(event){
 
+
+
+function movimiento(evento) {
+
+    if(evento.keyCode==32){
+        //disparar();
+    }
+    if(evento.keyCode==37){
+        blas.nave.mover("-");
+    }
+    if(evento.keyCode==39){
+        blas.nave.mover("+");
+    }
 }
-
-function moverNave(event){
-    console.log(event.screenX);
-}
-
+var blas;
 window.onload=() => {
-    document.body.addEventListener("keyup",disparar);
-    document.body.addEventListener("onclick",moverNave); ///CAMBIAR A TECLADO
-    var juego=new Juego();
-    console.log(juego.marcianos);
-    juego.dibujar();
+    //document.body.addEventListener("keyup",movimiento);
+    blas =new Juego();
+    blas.dibujar();
+    document.body.addEventListener("keyup",movimiento);
 }
 
 

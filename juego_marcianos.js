@@ -16,7 +16,7 @@ export class Marciano{
 export class Nave{
     constructor(){
         this.x= 500/2;
-        this.velx=10;
+        this.velx=20;
         this.tag = document.createElementNS("http://www.w3.org/2000/svg", "rect");
         this.tag.setAttribute("fill", "blue");
         this.tag.setAttribute("x", this.x);
@@ -34,9 +34,11 @@ export class Nave{
         if (this.x <= 0){
             this.x=5;
         }
-        if(this.x  >= 500) {
-            this.x=500-5;
+        if(this.x  >= 450) {
+            this.x=450-5;
         }
+
+        this.dibujar();
     }
 
     dibujar() {

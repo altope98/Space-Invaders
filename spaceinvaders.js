@@ -1,52 +1,69 @@
-import {Marciano, Nave, Disparo, Juego} from './juego_marcianos.js';
-
+import { Marciano, Nave, Disparo, Juego } from './juego_marcianos.js';
+var direccion = "+";
+var juego;
+var condicion;
+var disparo;
+var puntuacion=0;
 
 
 function movimiento(evento) {
 
-    if(evento.keyCode==32){
-
-        let x=juego.nave.x+(50/2);
-        let y=juego.nave.y;
-        let disparo= new Disparo(x,y);
+    if (evento.keyCode == 32) {
+        condicion=true;
+        let x = juego.nave.x + (50 / 2);
+        let y = juego.nave.y;
+        disparo = new Disparo(x, y, juego.marcianos);
     }
-    if(evento.keyCode==37){
+    if (evento.keyCode == 37) {
         juego.nave.mover("-");
     }
-    if(evento.keyCode==39){
+    if (evento.keyCode == 39) {
         juego.nave.mover("+");
     }
 }
-var juego;
-var izquierda;
-var derecha=false;
-window.onload=() => {
-    juego =new Juego();
+
+window.onload = () => {
+    juego = new Juego();
     juego.dibujar();
-    document.body.addEventListener("keyup",movimiento);
-    setInterval(()=>{
-        for ( let marciano of juego.marcianos) {
-           /*  if(this.marciano.x<= 450){
-                this.marciano.x+=10;
+    let div = document.getElementById("puntuacion");
+    let h1=document.createElement("h1");
+    h1.textContent=puntuacion;
+    h1.style.marginLeft="250px";
+    div.appendChild(h1);
+    document.body.addEventListener("keyup", movimiento);
+    setInterval(() => {
+        for (let marciano of juego.marcianos) {
+
+            if (marciano != null) {
+                marciano.mover(direccion);
+                if (marciano.x == 490) {
+                    direccion = "-";
+                    marciano.mover(direccion);
+                    marciano.y += 10;
+                }
+                if (marciano.x == 0) {
+                    direccion = "+";
+                    marciano.mover(direccion);
+                    marciano.y += 10;
+                }
             }
-            if(this.marciano.x?= 0){
-                this.marciano.x+=10;
-            } */
 
 
-            /*if (this.marciano.x <= 0){
-                this.marciano.mover("+");
-            }*/
-            if(marciano.x  > 490) {
-                derecha=true;
-                if(derecha)
-                marciano.mover("-");
-            }else{
-                derecha=false;
-                marciano.mover("+");
-            }
         }
-    },1000);
+
+        if(condicion){
+            
+            if(disparo.impacto()){
+                condicion=false;
+                puntuacion++;
+                h1.textContent=puntuacion;
+
+            }
+            disparo.dibujar();
+            //disparo.impacto();
+            
+        }
+    }, 100);
 }
 
 

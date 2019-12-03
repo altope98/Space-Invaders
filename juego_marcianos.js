@@ -1,3 +1,5 @@
+
+
 export class Marciano {
     constructor(x, y) {
         this.x = x;
@@ -19,8 +21,10 @@ export class Marciano {
         } else {
             this.x = this.x + 10;
         }
+
         this.dibujar();
-        
+
+
     }
 }
 
@@ -71,43 +75,27 @@ export class Disparo {
 
         this.svg.appendChild(this.shot);
         this.div.appendChild(this.svg);
-
-        //this.dibujar();
     }
 
-    /*mover() {
-        do {
-            setInterval(() => {
-                if (this.y == 0) {
-                    return;
-                } else {
-                    this.dibujar();
-                    this.impacto();
-                }
-            }, 100);
-        } while (0 >= this.y || this.impacto())
-    }
-*/
     dibujar() {
         this.shot.setAttribute("cy", this.y -= 10);
     }
-    
+
     impacto() {
         for (let i = 0; i < this.marcianos.length; i++) {
-            if(this.marcianos[i]!=null){
-            if (this.y <= (this.marcianos[i].y + 40) && this.y >= this.marcianos[i].y && this.x <= (this.marcianos[i].x + 40) && this.x >= this.marcianos[i].x) {
-                this.marcianos[i].mar.style.display="none";
-                this.marcianos[i] = null;
-                this.shot.style.display="none";
-                this.y=150;
-                //this.dibujar();
-                console.log("impacto");
-                console.log(this.marcianos);
+            if (this.marcianos[i] != null) {
+                if (this.y <= (this.marcianos[i].y + 40) && this.y >= this.marcianos[i].y && this.x <= (this.marcianos[i].x + 40) && this.x >= this.marcianos[i].x) {
+                    this.marcianos[i].mar.style.display = "none";
+                    this.marcianos[i] = null;
+                    this.shot.style.display = "none";
+                    this.y = 150;
+                    console.log("impacto");
+                    console.log(this.marcianos);
 
-                return true;
-                
+                    return true;
+
+                }
             }
-        }
         }
     }
 }
@@ -126,18 +114,21 @@ export class Juego {
             this.marcianos.push(new Marciano(x, y));
         }
         this.nave = new Nave();
+        this.perdida = false;
+        this.direccionx;
+        this.condiciony;
     }
 
     dibujar() {
         let cont = 0;
         let div = document.getElementById("juego");
-        let h2=document.createElement("h2");
+        let h2 = document.createElement("h2");
         h2
         let svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
         svg.setAttribute("width", "500");
         svg.setAttribute("height", "500");
         svg.setAttribute("id", "svg1");
-        for (this.marciano of this.marcianos) {   ///CAMBIAR EL PINTADO PARA QUE CUANDO DESAPAREZCA DEL ARRAY NO PINTE NADA EN ESA POSICION CON UN IF
+        for (this.marciano of this.marcianos) {
             this.marciano.mar.setAttribute("id", cont);
             cont++;
             svg.appendChild(this.marciano.mar);
@@ -146,5 +137,34 @@ export class Juego {
         svg.appendChild(this.nave.tag);
         div.appendChild(svg);
     }
+
+    moverMarcianos() {
+        for (const marciano of this.marcianos) {
+            if (marciano != null) {
+                if (marciano.x == 490) {
+                    this.direccionx = "-";
+                    this.condiciony = true;
+                }
+                if (marciano.x == 0) {
+                    this.direccionx = "+";
+                    this.condiciony = true;
+                }
+
+                if (marciano.y == 370) {
+                    this.perdida = true;
+                }
+            }
+        }
+
+        for (const marciano of this.marcianos) {
+            if (marciano != null) {
+                marciano.mover(this.direccionx);
+                if (this.condiciony) {
+                    marciano.y += 10;
+                }
+            }
+        }
+        this.condiciony = false;
+    }
 }
-//MOVIMIENTOS DE MARCIANO Y LAS BOMBAS
+// FALTAN LAS BOMBAS, CORREGIR LO DE SI TIRAS MAS DE UN DISPARO, CARTEL DE HAS PERDIDO O HAS GANADO Y QUIERES VOLVER A JUGAR

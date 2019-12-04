@@ -3,7 +3,7 @@ import { Marciano, Nave, Disparo, Juego } from './juego_marcianos.js';
 var juego;
 var puntuacion = 0;
 var disparos = [];
-var vidas = 1;
+var vidas = 3;
 var ganada;
 var cont;
 
@@ -27,17 +27,22 @@ window.onload = () => {
 }
 
 
-/*function ganador(){
+function ganador(){
     for (let marciano of juego.marcianos) {
-        if(marciano==null && cont==16){
+        if(marciano==null){
             cont++;
-            ganada=true;
-        }else{
-            ganada=false;
         }
+
     }
+    if (cont==16) {
+        ganada=true;
+    }else{
+        ganada=false;
+    }
+
+    cont=0;
     return ganada;
-}*/
+}
 
 function crearJuego() {
 
@@ -53,7 +58,9 @@ function crearJuego() {
     div.appendChild(h2);
 
     document.body.addEventListener("keyup", movimiento);
+    
     document.getElementById("si").addEventListener("click", crearJuego);
+    document.getElementById("si2").addEventListener("click", crearJuego);
 
     var intervalo = setInterval(() => {
         juego.moverMarcianos();
@@ -92,7 +99,7 @@ function crearJuego() {
                     svg.removeChild(disparo.shot);
                     disparos[i] = null;
 
-                    /*if(ganador()){
+                    if(ganador()){
                         let div = document.getElementById("juego");
                         div.removeChild(document.getElementById("svg1"));
                         let div2 = document.getElementById("puntuacion");
@@ -100,9 +107,10 @@ function crearJuego() {
                         div2.removeChild(h2);
                         vidas = 3;
                         puntuacion = 0;
-                        $('#modal2').modal('show');
                         clearInterval(intervalo);
-                    }*/
+                        $('#modal2').modal('show');
+                        
+                    }
                     
                 }
                 disparo.dibujar();

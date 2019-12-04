@@ -1,5 +1,3 @@
-
-
 export class Marciano {
     constructor(x, y) {
         this.x = x;
@@ -21,10 +19,7 @@ export class Marciano {
         } else {
             this.x = this.x + 10;
         }
-
         this.dibujar();
-
-
     }
 }
 
@@ -87,13 +82,12 @@ export class Disparo {
                 if (this.y <= (this.marcianos[i].y + 40) && this.y >= this.marcianos[i].y && this.x <= (this.marcianos[i].x + 40) && this.x >= this.marcianos[i].x) {
                     this.marcianos[i].mar.style.display = "none";
                     this.marcianos[i] = null;
-                    this.shot.style.display = "none";
+                    
                     this.y = 150;
                     console.log("impacto");
                     console.log(this.marcianos);
 
                     return true;
-
                 }
             }
         }
@@ -122,8 +116,7 @@ export class Juego {
     dibujar() {
         let cont = 0;
         let div = document.getElementById("juego");
-        let h2 = document.createElement("h2");
-        h2
+        //let h2 = document.createElement("h2");
         let svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
         svg.setAttribute("width", "500");
         svg.setAttribute("height", "500");
@@ -141,7 +134,7 @@ export class Juego {
     moverMarcianos() {
         for (const marciano of this.marcianos) {
             if (marciano != null) {
-                if (marciano.x == 490) {
+                if (marciano.x == 460) {
                     this.direccionx = "-";
                     this.condiciony = true;
                 }
@@ -149,7 +142,6 @@ export class Juego {
                     this.direccionx = "+";
                     this.condiciony = true;
                 }
-
                 if (marciano.y == 370) {
                     this.perdida = true;
                 }
@@ -166,5 +158,7 @@ export class Juego {
         }
         this.condiciony = false;
     }
+
+    
 }
 // FALTAN LAS BOMBAS, CORREGIR LO DE SI TIRAS MAS DE UN DISPARO, CARTEL DE HAS PERDIDO O HAS GANADO Y QUIERES VOLVER A JUGAR

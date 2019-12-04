@@ -1,17 +1,18 @@
 import { Marciano, Nave, Disparo, Juego } from './juego_marcianos.js';
 
 var juego;
-var condicion;
-var disparo;
 var puntuacion = 0;
+var disparos = [];
+var vidas = 1;
+var ganada;
+var cont;
 
 function movimiento(evento) {
 
     if (evento.keyCode == 32) {
-        condicion = true;
         let x = juego.nave.x + (50 / 2);
         let y = juego.nave.y;
-        disparo = new Disparo(x, y, juego.marcianos);
+        disparos.push(new Disparo(x, y, juego.marcianos));
     }
     if (evento.keyCode == 37) {
         juego.nave.mover("-");
@@ -22,33 +23,91 @@ function movimiento(evento) {
 }
 
 window.onload = () => {
+    crearJuego();
+}
+
+
+/*function ganador(){
+    for (let marciano of juego.marcianos) {
+        if(marciano==null && cont==16){
+            cont++;
+            ganada=true;
+        }else{
+            ganada=false;
+        }
+    }
+    return ganada;
+}*/
+
+function crearJuego() {
+
     juego = new Juego();
     juego.dibujar();
     let div = document.getElementById("puntuacion");
     let h1 = document.createElement("h1");
     h1.textContent = puntuacion;
     h1.style.marginLeft = "250px";
+    let h2 = document.createElement("h2");
+    h2.textContent = "Vidas restantes: " + vidas;
     div.appendChild(h1);
+    div.appendChild(h2);
+
     document.body.addEventListener("keyup", movimiento);
+    document.getElementById("si").addEventListener("click", crearJuego);
 
     var intervalo = setInterval(() => {
         juego.moverMarcianos();
 
         if (juego.perdida) {
-            clearInterval(intervalo);
-            console.log("Has perdido");
-        }
-        if (condicion) {
-            if (disparo.impacto()) {
-                condicion = false;
-                puntuacion++;
-                h1.textContent = puntuacion;
+            vidas--;
+            h2.textContent = "Vidas restantes: " + vidas;
+            if (vidas > 0) {
+                let div = document.getElementById("juego");
+                div.removeChild(document.getElementById("svg1"));
+                juego = new Juego();
+                juego.dibujar();
+
+            } else {
+                let div = document.getElementById("juego");
+                div.removeChild(document.getElementById("svg1"));
+                let div2 = document.getElementById("puntuacion");
+                div2.removeChild(h1);
+                div2.removeChild(h2);
+                vidas = 3;
+                puntuacion = 0;
+                clearInterval(intervalo);
+                $('#modal').modal('show');
+                //location.href ="perdida";
+                console.log("Has perdido");
             }
-            disparo.dibujar();
+
         }
+            for (let i = 0; i < disparos.length; i++) {
+                let disparo = disparos[i];
+                if (disparo != null) { 
+                if (disparo.impacto()) {
+                    puntuacion++;
+                    h1.textContent = puntuacion;
+                    let svg = document.getElementById("svg1");
+                    svg.removeChild(disparo.shot);
+                    disparos[i] = null;
+
+                    /*if(ganador()){
+                        let div = document.getElementById("juego");
+                        div.removeChild(document.getElementById("svg1"));
+                        let div2 = document.getElementById("puntuacion");
+                        div2.removeChild(h1);
+                        div2.removeChild(h2);
+                        vidas = 3;
+                        puntuacion = 0;
+                        $('#modal2').modal('show');
+                        clearInterval(intervalo);
+                    }*/
+                    
+                }
+                disparo.dibujar();
+            }
+
+    }
     }, 100);
 }
-
-
-
-

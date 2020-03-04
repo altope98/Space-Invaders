@@ -1,11 +1,12 @@
-Javascript Space-Invaders game
+# 2º DAW - Client Web Development
 
-CONTROLS:
-LEFT ARROW --> MOVE LEFT,
-RIGHT ARROW --> MOVE RIGHT,
-SPACE --> SHOOT
+# Javascript Space-Invaders game
 
-LIVES: 3
+## CONTROLS:
+* LEFT ARROW --> MOVE LEFT,
+* RIGHT ARROW --> MOVE RIGHT,
+* SPACE --> SHOOT
 
-GAME IN PRODUCTION:
-https://altope.000webhostapp.com/space/
+## LIVES: 3
+
+# GAME IN PRODUCTION: https://altope.000webhostapp.com/space/index.html
